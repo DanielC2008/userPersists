@@ -8,6 +8,8 @@ const routes = require('./routes/')
 const port = process.env.PORT || 3000
 app.set('port', port)
 
+app.set('view engine', 'pug')
+app.use(express.static('public'))
 app.use(routes)
 
 

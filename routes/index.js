@@ -5,15 +5,15 @@ const router = Router()
 
 
 router.get('/', (req, res) => {
-	res.send('hello')
+	res.render('index')
 })
 
 router.get('/login', (req, res) => {
-	res.send('howdy')
+	res.render('login')
 })
 
 router.get('/register', (req, res) => {
-	res.send('yo')
+	res.render('register')
 })
 
 module.exports = router
