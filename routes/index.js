@@ -43,7 +43,10 @@ router.post('/register', ({body: {email, password} }, res, err) => {
 })
 
 router.get('/logout', (req, res) => {
-	res.render('logout', { email: null })
+	req.session.destroy(err => {
+		if (err) throw err
+	})
+	res.render('logout')
 })
 
 module.exports = router
