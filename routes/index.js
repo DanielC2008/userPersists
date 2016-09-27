@@ -41,4 +41,8 @@ router.post('/register', ({body: {email, password} }, res, err) => {
 		.catch(err)
 })
 
+router.get('/logout', (req, res) => {
+	res.render('logout', { email: null })
+})
+
 module.exports = router
