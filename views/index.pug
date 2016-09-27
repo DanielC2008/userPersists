@@ -3,4 +3,10 @@ html
 	head
 		title Persists
 	body
-		h1 Welcome a@b.com
+
+		include partials/navbar.pug
+
+		if user
+			h1 Welcome a@b.com
+		else
+			h1 Welcome
