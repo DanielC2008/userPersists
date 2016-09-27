@@ -13,18 +13,23 @@ router.get('/login', (req, res) => {
 	res.render('login')
 })
 
-router.post('/login', ({body: {email, password}}, res, err) => {
+router.post('/login', ({ session, body: {email, password} }, res, err) => {
 	//get obj that matches username
 	User
 		.findOne({email: email})
 		.then((user) => {
 			//compare the passwords
 			//true redirect to index
-			if (password === user.password) {
-				res.render('index', {email})
-			// false render /login with a message
+			if (user){
+				if (password === user.password) {
+					session.user = email
+					res.redirect('/')
+				// false render /login with a message
+				} else {
+					res.render('login', {msg: 'password incorrect'})
+				}
 			} else {
-				res.render('login')
+				res.render('login', {msg: 'email does not exist'})
 			}
 		})
 		.catch(err)
@@ -42,7 +47,10 @@ router.post('/register', ({body: {email, password} }, res, err) => {
 })
 
 router.get('/logout', (req, res) => {
-	res.render('logout', { email: null })
+	req.session.destroy(err => {
+		if (err) throw err
+	})
+	res.render('logout')
 })
 
 module.exports = router
