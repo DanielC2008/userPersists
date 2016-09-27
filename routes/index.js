@@ -13,7 +13,7 @@ router.get('/login', (req, res) => {
 	res.render('login')
 })
 
-router.post('/login', ({body: {email, password}}, res, err) => {
+router.post('/login', ({ session, body: {email, password} }, res, err) => {
 	//get obj that matches username
 	User
 		.findOne({email: email})
@@ -21,7 +21,8 @@ router.post('/login', ({body: {email, password}}, res, err) => {
 			//compare the passwords
 			//true redirect to index
 			if (password === user.password) {
-				res.render('index', {email})
+				session.user = email
+				res.redirect('/')
 			// false render /login with a message
 			} else {
 				res.render('login')
