@@ -21,7 +21,7 @@ router.post('/login', ({body: {email, password}}, res, err) => {
 			//compare the passwords
 			//true redirect to index
 			if (password === user.password) {
-				res.redirect('/')
+				res.render('index', {email})
 			// false render /login with a message
 			} else {
 				res.render('login')
