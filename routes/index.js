@@ -20,12 +20,16 @@ router.post('/login', ({ session, body: {email, password} }, res, err) => {
 		.then((user) => {
 			//compare the passwords
 			//true redirect to index
-			if (password === user.password) {
-				session.user = email
-				res.redirect('/')
-			// false render /login with a message
+			if (user){
+				if (password === user.password) {
+					session.user = email
+					res.redirect('/')
+				// false render /login with a message
+				} else {
+					res.render('login', {msg: 'password incorrect'})
+				}
 			} else {
-				res.render('login')
+				res.render('login', {msg: 'email does not exist'})
 			}
 		})
 		.catch(err)
